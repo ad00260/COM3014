@@ -1,0 +1,38 @@
+package com.com3018.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
+import javax.servlet.http.HttpServletRequest;
+
+/**
+ * Created by Anisha on 08/05/2016.
+ */
+
+@Controller
+
+// class level, used throughout all methods/ functions listed
+
+@RequestMapping("/cart")
+public class CartItemController {
+
+    // session id as cart id, one to one relationship
+
+    @RequestMapping
+    public String get(HttpServletRequest request) {
+        return "redirect:/cart/" + request.getSession(true).getId();
+    }
+
+    // adding cartid to model in cart view
+
+    @RequestMapping(value = "/{cartId}", method = RequestMethod.GET)
+    public String getCart(@PathVariable(value = "cartId") String cartId, Model model) {
+        model.addAttribute("cartId", cartId);
+
+        return "cart";
+    }
+
+}
